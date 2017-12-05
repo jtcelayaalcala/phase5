@@ -1,5 +1,6 @@
 #!/bin/ksh
-dir=/home/cs452/fall17/phase5/testResults
+dir=/Users/jtcelayaalcala/Desktop/USLOSS/phase5/testResults
+#dir=/home/cs452/fall17/phase5/testResults
 #dir=/home/cs452/fall17/admin/project/phase5/testResults
 #dir=/Users/patrick/Classes/452/project/phase5/testResults
 

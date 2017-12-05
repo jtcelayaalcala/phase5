@@ -36,8 +36,7 @@
  *  Return Value: 0 means success, -1 means error occurs
  *
  */
-int Mbox_Create(int numslots, int slotsize, int *mboxID)
-{
+int Mbox_Create(int numslots, int slotsize, int *mboxID) {
     USLOSS_Sysargs sysArg;
 
     CHECKMODE;
@@ -60,8 +59,7 @@ int Mbox_Create(int numslots, int slotsize, int *mboxID)
  *  Return Value: 0 means success, -1 means error occurs
  *
  */
-int Mbox_Release(int mboxID)
-{
+int Mbox_Release(int mboxID) {
     USLOSS_Sysargs sysArg;
 
     CHECKMODE;
@@ -84,8 +82,7 @@ int Mbox_Release(int mboxID)
  *  Return Value: 0 means success, -1 means error occurs
  *
  */
-int Mbox_Send(int mboxID, void *msgPtr, int msgSize)
-{
+int Mbox_Send(int mboxID, void *msgPtr, int msgSize) {
     USLOSS_Sysargs sysArg;
 
     CHECKMODE;
@@ -110,8 +107,7 @@ int Mbox_Send(int mboxID, void *msgPtr, int msgSize)
  *  Return Value: 0 means success, -1 means error occurs
  *
  */
-int Mbox_Receive(int mboxID, void *msgPtr, int msgSize)
-{
+int Mbox_Receive(int mboxID, void *msgPtr, int msgSize) {
     USLOSS_Sysargs sysArg;
 
     CHECKMODE;
@@ -145,8 +141,7 @@ int Mbox_Receive(int mboxID, void *msgPtr, int msgSize)
  *                was full
  *
  */
-int Mbox_CondSend(int mboxID, void *msgPtr, int msgSize)
-{
+int Mbox_CondSend(int mboxID, void *msgPtr, int msgSize) {
     USLOSS_Sysargs sysArg;
 
     CHECKMODE;
@@ -173,8 +168,7 @@ int Mbox_CondSend(int mboxID, void *msgPtr, int msgSize)
  *                message was available
  *
  */
-int Mbox_CondReceive(int mboxID, void *msgPtr, int msgSize)
-{
+int Mbox_CondReceive(int mboxID, void *msgPtr, int msgSize) {
     USLOSS_Sysargs sysArg;
 
     CHECKMODE;
@@ -200,8 +194,7 @@ int Mbox_CondReceive(int mboxID, void *msgPtr, int msgSize)
  *  Return Value: address of VM region, NULL if there was an error
  *
  */
-int VmInit(int mappings, int pages, int frames, int pagers, void **region)
-{
+int VmInit(int mappings, int pages, int frames, int pagers, void **region) {
     USLOSS_Sysargs sysArg;
     int result;
 
@@ -238,8 +231,7 @@ int VmInit(int mappings, int pages, int frames, int pagers, void **region)
  *
  */
 
-int
-VmDestroy(void) {
+int VmDestroy(void) {
     USLOSS_Sysargs     sysArg;
 
     CHECKMODE;

@@ -1,4 +1,6 @@
-PREFIX = ${HOME}
+PREFIX = /Users/jtcelayaalcala/Desktop/USLOSS
+
+#${HOME}
 
 TARGET = libphase5.a
 ASSIGNMENT = 452phase5
@@ -42,9 +44,9 @@ $(TARGET):	$(COBJS)
 		$(AR) -r $@ $(COBJS) 
 
 #$(TESTS):	$(TARGET) $(TESTDIR)/$$@.c
-$(TESTS):	$(TARGET)
+$(TESTS):	$(TARGET) p1.o
 	$(CC) $(CFLAGS) -c $(TESTDIR)/$@.c
-	$(CC) $(LDFLAGS) -o $@ $@.o $(LIBS)
+	$(CC) $(LDFLAGS) -o $@ $@.o $(LIBS) p1.o
 
 clean:
 	rm -f $(COBJS) $(TARGET) test?.o test? simple?.o simple? simple??.o simple?? gen.o gen \

@@ -13,6 +13,7 @@
  */
 #define UNUSED 500
 #define INCORE 501
+#define USED 502
 /* You'll probably want more states */
 
 
@@ -20,6 +21,7 @@
  * Page table entry.
  */
 typedef struct PTE {
+    int  inUse;
     int  state;      // See above.
     int  frame;      // Frame that stores the page (if any). -1 if none.
     int  diskBlock;  // Disk block that stores the page (if any). -1 if none.
@@ -32,6 +34,8 @@ typedef struct PTE {
 typedef struct Process {
     int  numPages;   // Size of the page table.
     PTE  *pageTable; // The page table for the process.
+    int privateMbox;
+    int inVM;
     // Add more stuff here */
 } Process;
 
