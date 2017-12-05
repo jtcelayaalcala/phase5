@@ -1,3 +1,45 @@
+p1_fork() called: pid = 1
+p1_fork(): Done!
+p1_fork() called: pid = 2
+p1_fork(): Done!
+p1_switch() called: old = 0, new = 2
+p1_fork() called: pid = 3
+p1_fork(): Done!
+p1_switch() called: old = 2, new = 3
+p1_fork() called: pid = 4
+p1_fork(): Done!
+p1_switch() called: old = 3, new = 4
+p1_fork() called: pid = 5
+p1_fork(): Done!
+p1_switch() called: old = 4, new = 5
+p1_switch() called: old = 5, new = 4
+p1_fork() called: pid = 6
+p1_fork(): Done!
+p1_fork() called: pid = 7
+p1_fork(): Done!
+p1_switch() called: old = 4, new = 5
+p1_switch() called: old = 5, new = 4
+p1_switch() called: old = 4, new = 6
+p1_switch() called: old = 6, new = 7
+p1_switch() called: old = 7, new = 5
+p1_switch() called: old = 5, new = 1
+p1_switch() called: old = 1, new = 6
+p1_switch() called: old = 6, new = 4
+p1_switch() called: old = 4, new = 6
+p1_switch() called: old = 6, new = 4
+p1_switch() called: old = 4, new = 6
+p1_switch() called: old = 6, new = 1
+p1_switch() called: old = 1, new = 7
+p1_switch() called: old = 7, new = 4
+p1_fork() called: pid = 8
+p1_fork(): Done!
+p1_switch() called: old = 4, new = 7
+p1_switch() called: old = 7, new = 8
+p1_fork() called: pid = 9
+p1_fork(): Done!
+p1_switch() called: old = 8, new = 9
+p1_switch() called: old = 9, new = 8
+p1_switch() called: old = 8, new = 9
 start5(): Running:    simple3
 start5(): Pagers:     1
           Mappings:   3
@@ -6,13 +48,123 @@ start5(): Pagers:     1
           Children:   1
           Iterations: 1
           Priority:   5
+vmInit(): started!
+vmInit(): Extracting values from Sysargs struct...
+vmInitReal(): started!
+vmInitReal(): Forking pagers...
+p1_fork() called: pid = 10
+p1_fork(): Initializing page table for process 10
+p1_fork(): Done!
+vmInit(): Returning!
+vmInit(): Done!
 start5(): after call to VmInit, status = 0
 
+p1_fork() called: pid = 11
+p1_fork(): Initializing page table for process 11
+p1_fork(): Done!
+p1_switch() called: old = 9, new = 10
+Pager(): started!
+Pager(): waiting for fault...
+p1_switch() called: old = 10, new = 8
+p1_switch() called: old = 8, new = 11
 
 Child(11): starting
+FaultHandler(): started!
+FaultHandler(): Sending message to pager...
+p1_switch() called: old = 11, new = 10
+p1_switch(): Number of pages is: 3
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+Pager(): Received fault from process 11
+Pager(): Address that caused the fault was 0
+Pager(): Free frame found! Frame 0
+Pager(): Zeroing out frame 0
+p1_switch() called: old = 10, new = 11
+p1_switch(): Number of pages is: 3
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+p1_switch(): Unused frame being mapped
+p1_switch(): vmStats is 1
+FaultHandler(): Waiting...
+p1_switch() called: old = 11, new = 10
+p1_switch(): Number of pages is: 3
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+Pager(): waiting for fault...
+p1_switch() called: old = 10, new = 11
+p1_switch(): Number of pages is: 3
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+FaultHandler(): Done!
+FaultHandler(): started!
+FaultHandler(): Sending message to pager...
+p1_switch() called: old = 11, new = 10
+p1_switch(): Number of pages is: 3
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+Pager(): Received fault from process 11
+Pager(): Address that caused the fault was 4096
+Pager(): Free frame found! Frame 1
+Pager(): Zeroing out frame 1
+p1_switch() called: old = 10, new = 11
+p1_switch(): Number of pages is: 3
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+p1_switch(): Unused frame being mapped
+p1_switch(): vmStats is 2
+FaultHandler(): Waiting...
+p1_switch() called: old = 11, new = 10
+p1_switch(): Number of pages is: 3
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+Pager(): waiting for fault...
+p1_switch() called: old = 10, new = 11
+p1_switch(): Number of pages is: 3
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+FaultHandler(): Done!
+FaultHandler(): started!
+FaultHandler(): Sending message to pager...
+p1_switch() called: old = 11, new = 10
+p1_switch(): Number of pages is: 3
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+Pager(): Received fault from process 11
+Pager(): Address that caused the fault was 8192
+Pager(): Free frame found! Frame 2
+Pager(): Zeroing out frame 2
+p1_switch() called: old = 10, new = 11
+p1_switch(): Number of pages is: 3
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+p1_switch(): Unused frame being mapped
+p1_switch(): vmStats is 3
+FaultHandler(): Waiting...
+p1_switch() called: old = 11, new = 10
+p1_switch(): Number of pages is: 3
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+Pager(): waiting for fault...
+p1_switch() called: old = 10, new = 11
+p1_switch(): Number of pages is: 3
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+FaultHandler(): Done!
+p1_switch() called: old = 11, new = 9
+p1_switch() called: old = 9, new = 11
 Child(11): terminating
 
+p1_quit() called: pid = 11
+p1_quit(): Freeing page table for 11
+p1_switch() called: old = 0, new = 9
 start5(): done
+vmDestroy(): started!
+vmDestroyReal(): started!
+p1_switch() called: old = 9, new = 10
+Pager(): Done!
+p1_quit() called: pid = 10
+p1_quit(): Freeing page table for 10
+p1_switch() called: old = 0, new = 9
 VmStats
 pages:          3
 frames:         3
@@ -25,4 +177,32 @@ new:            3
 pageIns:        0
 pageOuts:       0
 replaced:       0
+vmDestroyReal(): Done!
+vmDestroy(): Done!
+p1_quit() called: pid = 9
+p1_quit(): Freeing page table for 9
+p1_switch() called: old = 0, new = 8
+p1_quit() called: pid = 8
+p1_quit(): Freeing page table for 8
+p1_switch() called: old = 0, new = 4
+p1_switch() called: old = 4, new = 6
+p1_quit() called: pid = 6
+p1_quit(): Freeing page table for 6
+p1_switch() called: old = 0, new = 4
+p1_switch() called: old = 4, new = 7
+p1_quit() called: pid = 7
+p1_quit(): Freeing page table for 7
+p1_switch() called: old = 0, new = 4
+p1_switch() called: old = 4, new = 1
+p1_switch() called: old = 1, new = 5
+p1_quit() called: pid = 5
+p1_quit(): Freeing page table for 5
+p1_switch() called: old = 0, new = 4
+p1_quit() called: pid = 4
+p1_quit(): Freeing page table for 4
+p1_switch() called: old = 0, new = 3
+p1_quit() called: pid = 3
+p1_quit(): Freeing page table for 3
+p1_switch() called: old = 0, new = 2
+p1_switch() called: old = 0, new = 1
 All processes completed.

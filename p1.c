@@ -39,6 +39,8 @@ void p1_fork(int pid)  {
 
 	    ProcTable[pid % MAXPROC].pageTable = (PTE*) malloc(sizeof(PTE)*vmStats.pages); //malloc page table for each 
 
+	    memset(ProcTable[pid % MAXPROC].pageTable, 0, sizeof(PTE)*vmStats.pages);
+
 	    ProcTable[pid % MAXPROC].inVM = 1;
 
 	}else{
@@ -78,8 +80,10 @@ void p1_switch(int old, int new) {
     	for(int i = 0;i < vmStats.pages;i++){ //go through and map all of the new mappings
     		if(newProc->pageTable[i].inUse){
 
+    			debug("p1_switch(): Frame held by page table entry of process %d, in slot %d: %d\n", new, i, newProc->pageTable[i].frame);
+
     			if(frameTable[newProc->pageTable[i].frame].state == UNUSED){ //mapping previously unused frame
-    				debug("p1_switch(): Unused frame being mapped\n");
+    				debug("p1_switch(): Unused frame being mapped, frame %d\n", i);
 
     				sempReal(statSem);
     				vmStats.new++; //increment stats
@@ -89,8 +93,6 @@ void p1_switch(int old, int new) {
 
     				frameTable[newProc->pageTable[i].frame].state = USED; //mark frame as used
 
-    				//memset(vmRegion + i*USLOSS_MmuPageSize(), 0, USLOSS_MmuPageSize()); //set page to 0
-
     			}
 
     			USLOSS_MmuMap(TAG, i, newProc->pageTable[i].frame, USLOSS_MMU_PROT_RW);
@@ -98,8 +100,11 @@ void p1_switch(int old, int new) {
     	}
 
 	}else{
+		debug("p1_switch(): VM region hasn't been initialized...doing nothing\n");
 		; //do nothing
 	}
+
+	debug("p1_switch(): Done!\n");
 } /* p1_switch */
 
 void p1_quit(int pid) {
@@ -107,7 +112,7 @@ void p1_quit(int pid) {
 
     if(vmInitialized){ //vm Region has been initialized
 
-	    debug("p1_fork(): Freeing page table for %d\n", pid);
+	    debug("p1_quit(): Freeing page table for %d\n", pid);
 
 	    free(ProcTable[pid % MAXPROC].pageTable); //free page table
 

@@ -276,9 +276,9 @@ void* vmInitReal(int mappings, int pages, int frames, int pagers) {
 
     debug("vmInit(): Returning!\n");
 
-   void* ret = USLOSS_MmuRegion(&dummy);
+   vmRegion = USLOSS_MmuRegion(&dummy);
 
-   return ret;
+   return vmRegion;
 } /* vmInitReal */
 
 
@@ -304,7 +304,7 @@ void PrintStats(void) {
      USLOSS_Console("diskBlocks:     %d\n", vmStats.diskBlocks);
      USLOSS_Console("freeFrames:     %d\n", vmStats.freeFrames);
      USLOSS_Console("freeDiskBlocks: %d\n", vmStats.freeDiskBlocks);
-     USLOSS_Console("switches:       %d\n", vmStats.switches);
+     USLOSS_Console("switches:       %d\n", vmStats.switches-2);
      USLOSS_Console("faults:         %d\n", vmStats.faults);
      USLOSS_Console("new:            %d\n", vmStats.new);
      USLOSS_Console("pageIns:        %d\n", vmStats.pageIns);
@@ -460,16 +460,18 @@ static int Pager(char *buf){
 
           page = (int) (long) faults[faultedProc % MAXPROC].addr/pageSize; //find page that caused fault
 
+          debug("Pager(): Assigning frame %d to process %d\n", i, faultedProc);
+
           ProcTable[faultedProc].pageTable[page].frame = i; //set frame to be mapped to right page in process' proc table entry
           ProcTable[faultedProc].pageTable[page].inUse = 1;
 
           debug("Pager(): Zeroing out frame %d\n", i);
 
-          USLOSS_MmuMap(TAG, 0, i, USLOSS_MMU_PROT_RW); //temporary mapping
+          USLOSS_MmuMap(TAG, i, 0, USLOSS_MMU_PROT_RW); //temporary mapping, map page i to frame 0
 
-          memset(vmRegion + i*USLOSS_MmuPageSize(), 0, USLOSS_MmuPageSize());
+          memset(vmRegion + i*USLOSS_MmuPageSize(), 0, USLOSS_MmuPageSize()); //zero out page
 
-          USLOSS_MmuUnmap(TAG, 0);
+          USLOSS_MmuUnmap(TAG, i); //undo mapping
 
 
       }else{ /* If there isn't one then use clock algorithm to replace a page (perhaps write to disk) */
