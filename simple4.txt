@@ -1,0 +1,19 @@
+start5(): Running:    simple4
+start5(): Pagers:     1
+          Mappings:   7
+          Pages:      7
+          Frames:     6
+          Children:   1
+          Iterations: 10
+          Priority:   5
+start5(): after call to VmInit, status = 0
+
+
+Child(11): starting
+
+Child(11): iteration 0
+before.faults = 0
+Child(11): reading one location from each of 7 pages
+Child(11): page 0, value 0
+Child(11): page 1, value 943208504
+Assertion failed: (value == 0), function Child, file testcases/simple4.c, line 66.

@@ -27,16 +27,17 @@ extern int start5(char *);
 
 Process ProcTable[MAXPROC];
 
-void* vmRegion;
+void* vmRegion; //global pointer to VM region
 int numPagers = 0;
 int* pagerIDs;
-int debugging = 0;
+int debugging = 0; //debugging variable
 
-int faultMBox;
+int faultMBox; //Mbox where pagers will look for faults to service
 
-int vmInitialized = 0;
+int vmInitialized = 0; //global to let all know if VM region has been intialized
 
-int statSem;
+int statSem; //mutex on vmStats struct
+int frameSem; //mutex on frame table
 
 FaultMsg faults[MAXPROC]; /* Note that a process can have only
                            * one fault at a time, so we can
@@ -80,7 +81,9 @@ start4(char *arg)
     int result;
     int status;
 
+    //intialize necessary semaphores
     SemCreate(1, &statSem);
+    SemCreate(1, &frameSem); 
 
     /* to get user-process access to mailbox functions */
     systemCallVec[SYS_MBOXCREATE]      = mbox_create;
@@ -429,6 +432,7 @@ static int Pager(char *buf){
   int faultedProc;
   int page = 0;
   int pageSize = USLOSS_MmuPageSize();
+  int accessBits = 0;
 
   debug("Pager(): started!\n");
 
@@ -447,6 +451,8 @@ static int Pager(char *buf){
 
       /* Look for free frame */
       int i = 0;
+
+      sempReal(frameSem);
 
       for(;i < vmStats.frames;i++){
           if(!frameTable[i].inUse){
@@ -476,6 +482,11 @@ static int Pager(char *buf){
 
       }else{ /* If there isn't one then use clock algorithm to replace a page (perhaps write to disk) */
 
+
+
+          //USLOSS_MmuGetAccess( , &access);
+
+
       }
 
 
@@ -483,6 +494,8 @@ static int Pager(char *buf){
 
 
 
+
+      semvReal(frameSem);
 
       /* Unblock waiting (faulting) process */
       MboxSend(ProcTable[faultedProc % MAXPROC].privateMbox, NULL, 0);
