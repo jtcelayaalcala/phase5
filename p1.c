@@ -21,6 +21,7 @@ extern int vmInitialized;
 extern frame* frameTable;
 extern int statSem;
 extern void* vmRegion;
+extern int* freePages;
 
 void p1_fork(int pid)  {
     debug("p1_fork() called: pid = %d\n", pid);
@@ -57,6 +58,10 @@ void p1_fork(int pid)  {
 void p1_switch(int old, int new) {
     debug("p1_switch() called: old = %d, new = %d\n", old, new);
 
+    debug("p1_switch(): vmStats.new is currently: %d\n", vmStats.new);
+    debug("p1_switch(): vmStats.pageOuts is currently: %d\n", vmStats.pageOuts);
+    debug("p1_switch(): vmStats.pageIns is currently: %d\n", vmStats.pageIns);
+
     Process *oldProc = &ProcTable[old % MAXPROC];
     Process *newProc = &ProcTable[new % MAXPROC];
 
@@ -86,13 +91,20 @@ void p1_switch(int old, int new) {
 
     			debug("p1_switch(): Frame held by page table entry of process %d, in slot %d: %d\n", new, i, newProc->pageTable[i].frame);
 
-    			if(newProc->pageTable[i].state == UNUSED){
+
+                if(ProcTable[new % MAXPROC].pageTable[i].state == UNUSED){
+
+                    ProcTable[new % MAXPROC].pageTable[i].state = USED;
+                }
+
+
+    			if(freePages[i] == 0){
     				//USLOSS_Halt(1);
 	    			sempReal(statSem);
 	    			vmStats.new++; //increment stats
 	    			semvReal(statSem);
 
-	    			ProcTable[new % MAXPROC].pageTable[i].state = USED;
+                    freePages[i] = 1;
 	    		}
 
     			if(frameTable[newProc->pageTable[i].frame].state == UNUSED){ //mapping previously unused frame

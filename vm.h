@@ -15,6 +15,7 @@
 #define INCORE 501
 #define USED 502
 #define REPLACED 503
+#define UNUSEDCORE 504
 /* You'll probably want more states */
 
 

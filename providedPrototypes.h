@@ -20,11 +20,11 @@ extern int  gettimeofdayReal(int *time);
 extern int  cputimeReal(int *time);
 extern int  getPID_real(int *pid);
 
-extern int sleepReal(int seconds);
-extern int diskReadReal(void *diskBuffer, int unit, int track, int first, int sectors, int *status);
-extern int diskWriteReal(void *diskBuffer, int unit, int track, int first, int sectors, int *status);
-extern int diskSizeReal(int unit, int *sector, int *track, int *disk);
-extern int termreadReal(char *buffer, int bufferSize, int unitID, int *numCharsRead);
-extern int termwriteReal(char *buffer, int bufferSize, int unitID, int *numCharsRead);
+extern int  diskSizeReal (int unit, int *sectorSize, int *trackSize,
+                          int *diskSize);
+extern int  diskReadReal (int unit, int track, int first_sector,
+                          int numSectors, void *buffer);
+extern int  diskWriteReal(int unit, int track, int first_sector,
+                          int numSectors, void *buffer);
 
 #endif  /* PROVIDED_PROTOTYPES_H */

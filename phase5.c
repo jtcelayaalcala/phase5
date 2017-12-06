@@ -43,10 +43,15 @@ int sectorSize = 0;
 int trackSize = 0;
 int diskSize = 0;
 
+int blocks = 0;
+int* freePages;
+
 int statSem; //mutex on vmStats struct
 int frameSem; //mutex on frame table
 
 int* freeBlocks;
+
+void* tempBuf;
 
 FaultMsg faults[MAXPROC]; /* Note that a process can have only
                            * one fault at a time, so we can
@@ -66,6 +71,26 @@ static void vmDestroy(USLOSS_Sysargs *USLOSS_SysargsPtr);
 void* vmInitReal(int mappings, int pages, int frames, int pagers);
 void vmDestroyReal(void);
 static int Pager(char *buf);
+
+void disableInterrupts(){
+    int currentpsr;
+    int newstatus;
+
+    currentpsr = USLOSS_PsrGet();
+    newstatus  = USLOSS_PsrSet(currentpsr & ~(1 << (USLOSS_PSR_CURRENT_INT-1) ) );
+
+  if (newstatus) newstatus++;
+}
+
+void enableInterrupts(){
+    int currentpsr;
+    int newstatus;
+
+    currentpsr = USLOSS_PsrGet();
+    newstatus  = USLOSS_PsrSet(currentpsr | (1 << (USLOSS_PSR_CURRENT_INT-1) ) );
+
+  if (newstatus) newstatus++;
+}
 
 
 /*
@@ -107,6 +132,8 @@ start4(char *arg)
         memset(&ProcTable[i], 0, sizeof(Process));
         Mbox_Create(0,0, &ProcTable[i].privateMbox);
      }
+
+    enableInterrupts();
 
     /* user-process access to VM functions */
     systemCallVec[SYS_VMINIT]    = vmInit;
@@ -234,10 +261,18 @@ void* vmInitReal(int mappings, int pages, int frames, int pagers) {
 
    diskSizeReal(SWAPDISK, &sectorSize, &trackSize, &diskSize); //get disk Size
 
+   tempBuf = malloc(USLOSS_MmuPageSize()); //malloc temporary buffer
 
    USLOSS_IntVec[USLOSS_MMU_INT] = FaultHandler; //install handler
 
-   freeBlocks = (int*) malloc(sizeof(int)*diskSize*trackSize*sectorSize/USLOSS_MmuPageSize());
+   blocks = diskSize*trackSize*sectorSize/USLOSS_MmuPageSize();
+
+   freeBlocks = (int*) malloc(sizeof(int)*blocks); //initialize free blocks
+   memset(freeBlocks, 0, sizeof(int)*blocks); //zero it out
+
+   freePages = (int*) malloc(sizeof(int)*pages); //initialize free blocks
+   memset(freePages, 0, sizeof(int)*pages); //zero it out
+
 
   /*Initialize frame table*/
 
@@ -265,6 +300,8 @@ void* vmInitReal(int mappings, int pages, int frames, int pagers) {
     pagerIDs = malloc(pagers*sizeof(int));
     numPagers = pagers;
 
+    enableInterrupts();
+
     for(int i = 0; i < pagers;i++){
       sprintf(name, "Pager %d", i);
       sprintf(buf, "%d", i);
@@ -281,9 +318,9 @@ void* vmInitReal(int mappings, int pages, int frames, int pagers) {
 
    vmStats.pages = pages;
    vmStats.frames = frames;
-   vmStats.diskBlocks = diskSize*trackSize*sectorSize/USLOSS_MmuPageSize();
+   vmStats.diskBlocks = blocks;
    vmStats.freeFrames = frames;
-   vmStats.freeDiskBlocks = diskSize*trackSize*sectorSize/USLOSS_MmuPageSize();
+   vmStats.freeDiskBlocks = blocks;
    vmStats.switches = 0;       // # of context switches
    vmStats.faults = 0;         // # of page faults
    vmStats.new = 0;            // # faults caused by previously unused pages
@@ -291,9 +328,11 @@ void* vmInitReal(int mappings, int pages, int frames, int pagers) {
    vmStats.pageOuts = 0;       // # faults that required writing a page to disk
    vmStats.replaced = 0; // # pages replaced; i.e., frame had a page and we
 
-    debug("vmInit(): Returning!\n");
+    debug("vmInitReal(): Returning!\n");
 
    vmRegion = USLOSS_MmuRegion(&dummy);
+
+   debug("vmInitReal(): vmRegion is: %ld\n", vmRegion);
 
    //dumpProcesses();
 
@@ -450,6 +489,10 @@ static int Pager(char *buf){
   int pageSize = USLOSS_MmuPageSize();
   int access = 0; //access bits
 
+  //dumpProcesses();
+
+  int justDone = 0;
+
   debug("Pager(): started!\n");
 
   while(!isZapped()) {
@@ -464,6 +507,8 @@ static int Pager(char *buf){
 
       debug("Pager(): Received fault from process %d\n", faultedProc);
       debug("Pager(): Address that caused the fault was %ld\n", (long) faults[faultedProc % MAXPROC].addr);
+
+      page = (int) (long) faults[faultedProc % MAXPROC].addr/pageSize; //find page that caused faults
 
       /* Look for free frame */
       int i = 0;
@@ -485,20 +530,65 @@ static int Pager(char *buf){
 
               debug("Pager(): Access is %d for frame %d\n", access, clockHand);
 
-              if(access == 0){ //not referenced
+              if(access == 0 || access == USLOSS_MMU_DIRTY){ //not referenced
                   i = clockHand;
                   debug("Pager(): Clock algorithm found frame %d\n", i);
 
-                  for(int k = 0;k < vmStats.pages;k++){
+
+                  int k = 0;
+                  int lastPage = 0;
+                  for(;k < vmStats.pages;k++){
                       if(ProcTable[faultedProc % MAXPROC].pageTable[k].frame == i){
                           ProcTable[faultedProc % MAXPROC].pageTable[k].state = REPLACED;
                           ProcTable[faultedProc % MAXPROC].pageTable[k].frame = -1;
+
+                          lastPage = k;
                           k = 100000;
                       }
                   }
+
+                  //write to disk if dirty
+                  if(access == USLOSS_MMU_DIRTY){
+                      debug("Pager(): Frame %d is dirty\n", i);
+
+                      debug("Pager(): Copying frame %d to intermediate buffer\n", i);
+
+                      USLOSS_MmuMap(TAG, 0, i, USLOSS_MMU_PROT_RW); //temporary mapping, map page 0 to frame i
+
+                      memcpy(tempBuf /*destiniation*/, vmRegion /*source*/, USLOSS_MmuPageSize()); //move to buffer
+
+                      USLOSS_MmuUnmap(TAG, 0); //undo mapping
+
+
+                      //look for free space in disk
+                      int n = 0;
+                      for(;n < blocks;n++){
+                          if(!freeBlocks[n]){
+                            break;
+                          }
+                      }
+
+                      debug("Pager(): About to write, have that pageSize is %d, sector size is %d, track size is %d, and disk size is %d\n", pageSize, sectorSize, trackSize, diskSize);
+                      debug("Pager(): So, we will write %d sectors to track %d, starting at sector %d\n", pageSize/(sectorSize), pageSize*n/(sectorSize*trackSize), pageSize*n/(sectorSize) % trackSize);
+
+                      diskWriteReal(SWAPDISK, pageSize*n/(sectorSize*trackSize) /*track*/, pageSize*n/(sectorSize) % trackSize /*sector*/, pageSize/(sectorSize)/*num sectors*/ , tempBuf);
+                      // if(ProcTable[faultedProc % MAXPROC].pageTable[page].state == UNUSED){
+                      //   justDone = 1;
+                      // }
+
+                      ProcTable[faultedProc % MAXPROC].pageTable[lastPage].state = INCORE; //tell process its page is now on disk
+                      ProcTable[faultedProc % MAXPROC].pageTable[lastPage].diskBlock = n; //tell it where it is
+
+                      debug("Pager(): Incrementing pageOuts to %d\n", vmStats.pageOuts+1);
+
+                      sempReal(statSem);
+                      vmStats.pageOuts++; //increment number of pageOuts
+                      semvReal(statSem);
+
+                  }
                   break;
               }else{ //referenced
-                  USLOSS_MmuSetAccess(clockHand, 0); //set reference bits to 0
+                  USLOSS_MmuSetAccess(clockHand, access-1); //set reference bit
               }
 
               clockHand = (clockHand+1) % vmStats.frames;
@@ -506,8 +596,6 @@ static int Pager(char *buf){
       }
 
       debug("Pager(): Free frame found! Frame %d\n", i);
-
-      page = (int) (long) faults[faultedProc % MAXPROC].addr/pageSize; //find page that caused fault
 
       debug("Pager(): Assigning frame %d to process %d\n", i, faultedProc);
 
@@ -520,10 +608,43 @@ static int Pager(char *buf){
 
       memset(vmRegion, 0, USLOSS_MmuPageSize()); //zero out page
 
+      USLOSS_MmuSetAccess(i, USLOSS_MMU_REF); //set reference bit to 1, i.e referenced
+
       USLOSS_MmuUnmap(TAG, 0); //undo mapping
 
 
       /* Load page into frame from disk, if necessary */
+      if(ProcTable[faultedProc % MAXPROC].pageTable[page].state == INCORE && !justDone){
+
+          debug("Pager(): Reading from disk...\n");
+
+          sempReal(statSem);
+          vmStats.pageIns++; //increment number of pageOuts
+          semvReal(statSem);
+
+          //read from disk
+          USLOSS_MmuMap(TAG, 0, i, USLOSS_MMU_PROT_RW); //temporary mapping, map page 0 to frame i
+
+          int n = pageSize*ProcTable[faultedProc % MAXPROC].pageTable[page].diskBlock;
+
+          debug("Pager(): About to read, have that pageSize is %d, sector size is %d, track size is %d, and disk size is %d\n", pageSize, sectorSize, trackSize, diskSize);
+          debug("Pager(): So, we will read %d sectors from track %d, starting at sector %d\n", pageSize/(sectorSize), pageSize*n/(sectorSize*trackSize), pageSize*n/(sectorSize) % trackSize);
+          debug("Pager(): Address we will read into is: %ld\n", vmRegion);
+
+
+          diskReadReal(SWAPDISK, pageSize*n/(sectorSize*trackSize) /*track*/, pageSize*n/(sectorSize) % trackSize /*sector*/, pageSize/(sectorSize)/*num sectors*/ , tempBuf);
+
+
+          memcpy(tempBuf /*destiniation*/, vmRegion /*source*/, USLOSS_MmuPageSize()); //move to buffer
+
+          //diskReadReal(vmRegion, SWAPDISK, pageSize*ProcTable[faultedProc % MAXPROC].pageTable[page].diskBlock/(sectorSize*trackSize), pageSize*ProcTable[faultedProc % MAXPROC].pageTable[page].diskBlock/(sectorSize), pageSize/sectorSize, NULL); //write frame to disk
+
+          USLOSS_MmuUnmap(TAG, 0); //undo mapping
+
+          ProcTable[faultedProc % MAXPROC].pageTable[page].state = USED;
+          freeBlocks[ProcTable[faultedProc % MAXPROC].pageTable[page].diskBlock] = 0;
+
+      }
 
       /* Unblock waiting (faulting) process */
       MboxSend(ProcTable[faultedProc % MAXPROC].privateMbox, NULL, 0);
