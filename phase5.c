@@ -21,6 +21,8 @@
 
 #define debug if(debugging) USLOSS_Console
 
+#define SWAPDISK 1
+
 extern int  SemFree(int semaphore);
 
 extern int start5(char *);
@@ -37,8 +39,14 @@ int faultMBox; //Mbox where pagers will look for faults to service
 
 int vmInitialized = 0; //global to let all know if VM region has been intialized
 
+int sectorSize = 0;
+int trackSize = 0;
+int diskSize = 0;
+
 int statSem; //mutex on vmStats struct
 int frameSem; //mutex on frame table
+
+int* freeBlocks;
 
 FaultMsg faults[MAXPROC]; /* Note that a process can have only
                            * one fault at a time, so we can
@@ -224,7 +232,12 @@ void* vmInitReal(int mappings, int pages, int frames, int pagers) {
 
    vmInitialized = 1;
 
+   diskSizeReal(SWAPDISK, &sectorSize, &trackSize, &diskSize); //get disk Size
+
+
    USLOSS_IntVec[USLOSS_MMU_INT] = FaultHandler; //install handler
+
+   freeBlocks = (int*) malloc(sizeof(int)*diskSize*trackSize*sectorSize/USLOSS_MmuPageSize());
 
   /*Initialize frame table*/
 
@@ -268,9 +281,9 @@ void* vmInitReal(int mappings, int pages, int frames, int pagers) {
 
    vmStats.pages = pages;
    vmStats.frames = frames;
-   vmStats.diskBlocks = 32;
+   vmStats.diskBlocks = diskSize*trackSize*sectorSize/USLOSS_MmuPageSize();
    vmStats.freeFrames = frames;
-   vmStats.freeDiskBlocks = 32;
+   vmStats.freeDiskBlocks = diskSize*trackSize*sectorSize/USLOSS_MmuPageSize();
    vmStats.switches = 0;       // # of context switches
    vmStats.faults = 0;         // # of page faults
    vmStats.new = 0;            // # faults caused by previously unused pages
@@ -469,6 +482,8 @@ static int Pager(char *buf){
 
           while(1){
               USLOSS_MmuGetAccess(clockHand, &access);
+
+              debug("Pager(): Access is %d for frame %d\n", access, clockHand);
 
               if(access == 0){ //not referenced
                   i = clockHand;
