@@ -31,6 +31,7 @@ void* vmRegion; //global pointer to VM region
 int numPagers = 0;
 int* pagerIDs;
 int debugging = 0; //debugging variable
+int clockHand = 0; //current clock position
 
 int faultMBox; //Mbox where pagers will look for faults to service
 
@@ -281,6 +282,8 @@ void* vmInitReal(int mappings, int pages, int frames, int pagers) {
 
    vmRegion = USLOSS_MmuRegion(&dummy);
 
+   //dumpProcesses();
+
    return vmRegion;
 } /* vmInitReal */
 
@@ -432,7 +435,7 @@ static int Pager(char *buf){
   int faultedProc;
   int page = 0;
   int pageSize = USLOSS_MmuPageSize();
-  int accessBits = 0;
+  int access = 0; //access bits
 
   debug("Pager(): started!\n");
 
@@ -452,50 +455,60 @@ static int Pager(char *buf){
       /* Look for free frame */
       int i = 0;
 
-      sempReal(frameSem);
-
       for(;i < vmStats.frames;i++){
+          sempReal(frameSem);
           if(!frameTable[i].inUse){
               frameTable[i].inUse = 1;
+              semvReal(frameSem);
               break;
+          }
+          semvReal(frameSem);
+      }
+
+      if(i >= vmStats.frames){ /* If there isn't one then use clock algorithm to replace a page (perhaps write to disk) */
+
+          while(1){
+              USLOSS_MmuGetAccess(clockHand, &access);
+
+              if(access == 0){ //not referenced
+                  i = clockHand;
+                  debug("Pager(): Clock algorithm found frame %d\n", i);
+
+                  for(int k = 0;k < vmStats.pages;k++){
+                      if(ProcTable[faultedProc % MAXPROC].pageTable[k].frame == i){
+                          ProcTable[faultedProc % MAXPROC].pageTable[k].state = REPLACED;
+                          ProcTable[faultedProc % MAXPROC].pageTable[k].frame = -1;
+                          k = 100000;
+                      }
+                  }
+                  break;
+              }else{ //referenced
+                  USLOSS_MmuSetAccess(clockHand, 0); //set reference bits to 0
+              }
+
+              clockHand = (clockHand+1) % vmStats.frames;
           }
       }
 
-      if(i < vmStats.frames){ //if free frame was found
-          debug("Pager(): Free frame found! Frame %d\n", i);
+      debug("Pager(): Free frame found! Frame %d\n", i);
 
-          page = (int) (long) faults[faultedProc % MAXPROC].addr/pageSize; //find page that caused fault
+      page = (int) (long) faults[faultedProc % MAXPROC].addr/pageSize; //find page that caused fault
 
-          debug("Pager(): Assigning frame %d to process %d\n", i, faultedProc);
+      debug("Pager(): Assigning frame %d to process %d\n", i, faultedProc);
 
-          ProcTable[faultedProc].pageTable[page].frame = i; //set frame to be mapped to right page in process' proc table entry
-          ProcTable[faultedProc].pageTable[page].inUse = 1;
+      ProcTable[faultedProc].pageTable[page].frame = i; //set frame to be mapped to right page in process' proc table entry
+      ProcTable[faultedProc].pageTable[page].inUse = 1;
 
-          debug("Pager(): Zeroing out frame %d\n", i);
+      debug("Pager(): Zeroing out frame %d\n", i);
 
-          USLOSS_MmuMap(TAG, i, 0, USLOSS_MMU_PROT_RW); //temporary mapping, map page i to frame 0
+      USLOSS_MmuMap(TAG, 0, i, USLOSS_MMU_PROT_RW); //temporary mapping, map page i to frame 0
 
-          memset(vmRegion + i*USLOSS_MmuPageSize(), 0, USLOSS_MmuPageSize()); //zero out page
+      memset(vmRegion, 0, USLOSS_MmuPageSize()); //zero out page
 
-          USLOSS_MmuUnmap(TAG, i); //undo mapping
-
-
-      }else{ /* If there isn't one then use clock algorithm to replace a page (perhaps write to disk) */
-
-
-
-          //USLOSS_MmuGetAccess( , &access);
-
-
-      }
+      USLOSS_MmuUnmap(TAG, 0); //undo mapping
 
 
       /* Load page into frame from disk, if necessary */
-
-
-
-
-      semvReal(frameSem);
 
       /* Unblock waiting (faulting) process */
       MboxSend(ProcTable[faultedProc % MAXPROC].privateMbox, NULL, 0);

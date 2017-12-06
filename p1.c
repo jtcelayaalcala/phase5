@@ -41,6 +41,10 @@ void p1_fork(int pid)  {
 
 	    memset(ProcTable[pid % MAXPROC].pageTable, 0, sizeof(PTE)*vmStats.pages);
 
+	    for(int i = 0;i < vmStats.pages;i++){
+	    	ProcTable[pid % MAXPROC].pageTable[i].state = UNUSED;
+	    }
+
 	    ProcTable[pid % MAXPROC].inVM = 1;
 
 	}else{
@@ -82,12 +86,17 @@ void p1_switch(int old, int new) {
 
     			debug("p1_switch(): Frame held by page table entry of process %d, in slot %d: %d\n", new, i, newProc->pageTable[i].frame);
 
+    			if(newProc->pageTable[i].state == UNUSED){
+    				//USLOSS_Halt(1);
+	    			sempReal(statSem);
+	    			vmStats.new++; //increment stats
+	    			semvReal(statSem);
+
+	    			ProcTable[new % MAXPROC].pageTable[i].state = USED;
+	    		}
+
     			if(frameTable[newProc->pageTable[i].frame].state == UNUSED){ //mapping previously unused frame
     				debug("p1_switch(): Unused frame being mapped, frame %d\n", i);
-
-    				sempReal(statSem);
-    				vmStats.new++; //increment stats
-    				semvReal(statSem);
 
     				debug("p1_switch(): vmStats is %d\n", vmStats.new);
 
@@ -95,7 +104,9 @@ void p1_switch(int old, int new) {
 
     			}
 
-    			USLOSS_MmuMap(TAG, i, newProc->pageTable[i].frame, USLOSS_MMU_PROT_RW);
+    			if(newProc->pageTable[i].frame >= 0){
+	    			USLOSS_MmuMap(TAG, i, newProc->pageTable[i].frame, USLOSS_MMU_PROT_RW);
+	    		}
     		}
     	}
 

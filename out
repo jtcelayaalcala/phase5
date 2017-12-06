@@ -3,50 +3,98 @@ p1_fork(): Done!
 p1_fork() called: pid = 2
 p1_fork(): Done!
 p1_switch() called: old = 0, new = 2
+p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): Done!
 p1_fork() called: pid = 3
 p1_fork(): Done!
 p1_switch() called: old = 2, new = 3
+p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): Done!
 p1_fork() called: pid = 4
 p1_fork(): Done!
 p1_switch() called: old = 3, new = 4
+p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): Done!
 p1_fork() called: pid = 5
 p1_fork(): Done!
 p1_switch() called: old = 4, new = 5
+p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): Done!
 p1_switch() called: old = 5, new = 4
+p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): Done!
 p1_fork() called: pid = 6
 p1_fork(): Done!
 p1_fork() called: pid = 7
 p1_fork(): Done!
 p1_switch() called: old = 4, new = 5
+p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): Done!
 p1_switch() called: old = 5, new = 4
+p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): Done!
 p1_switch() called: old = 4, new = 6
+p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): Done!
 p1_switch() called: old = 6, new = 7
+p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): Done!
 p1_switch() called: old = 7, new = 5
+p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): Done!
 p1_switch() called: old = 5, new = 1
+p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): Done!
 p1_switch() called: old = 1, new = 6
+p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): Done!
 p1_switch() called: old = 6, new = 4
+p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): Done!
 p1_switch() called: old = 4, new = 6
+p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): Done!
 p1_switch() called: old = 6, new = 4
+p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): Done!
 p1_switch() called: old = 4, new = 6
+p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): Done!
 p1_switch() called: old = 6, new = 1
+p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): Done!
 p1_switch() called: old = 1, new = 7
+p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): Done!
 p1_switch() called: old = 7, new = 4
+p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): Done!
 p1_fork() called: pid = 8
 p1_fork(): Done!
 p1_switch() called: old = 4, new = 7
+p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): Done!
 p1_switch() called: old = 7, new = 8
+p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): Done!
 p1_fork() called: pid = 9
 p1_fork(): Done!
 p1_switch() called: old = 8, new = 9
+p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): Done!
 p1_switch() called: old = 9, new = 8
+p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): Done!
 p1_switch() called: old = 8, new = 9
-start5(): Running:    simple3
+p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): Done!
+start5(): Running:    simple4
 start5(): Pagers:     1
-          Mappings:   3
-          Pages:      3
-          Frames:     3
+          Mappings:   7
+          Pages:      7
+          Frames:     6
           Children:   1
-          Iterations: 1
+          Iterations: 10
           Priority:   5
 vmInit(): started!
 vmInit(): Extracting values from Sysargs struct...
@@ -56,6 +104,57 @@ p1_fork() called: pid = 10
 p1_fork(): Initializing page table for process 10
 p1_fork(): Done!
 vmInit(): Returning!
+PID	Parent	Priority	Status		# Kids	CPUtime	Name
+ -1	  -1	   -1		EMPTY		  0	   -1
+ 1	  -2	   6		READY		  0	   99865	sentinel
+ 2	  -2	   1		JOIN_BLOCK	  1	   16	start1
+ 3	  2	   1		JOIN_BLOCK	  1	   12	start2
+ 4	  3	   1		JOIN_BLOCK	  4	   77	start3
+ 5	  4	   2		11		  0	   171	Clock driver
+ 6	  4	   2		11		  0	   40073	DiskDriver0
+ 7	  4	   2		11		  0	   40034	DiskDriver1
+ 8	  4	   3		READY		  1	   80107	start4
+ 9	  8	   2		RUNNING		  1	   6	Start5
+ 10	  9	   2		READY		  0	   -1	Pager 0
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
+ -1	  -1	   -1		EMPTY		  0	   -1
 vmInit(): Done!
 start5(): after call to VmInit, status = 0
 
@@ -63,146 +162,318 @@ p1_fork() called: pid = 11
 p1_fork(): Initializing page table for process 11
 p1_fork(): Done!
 p1_switch() called: old = 9, new = 10
+p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): Done!
 Pager(): started!
 Pager(): waiting for fault...
 p1_switch() called: old = 10, new = 8
+p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): Done!
 p1_switch() called: old = 8, new = 11
+p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): Done!
 
 Child(11): starting
+
+Child(11): iteration 0
+before.faults = 0
+Child(11): reading one location from each of 7 pages
 FaultHandler(): started!
 FaultHandler(): Sending message to pager...
 p1_switch() called: old = 11, new = 10
-p1_switch(): Number of pages is: 3
+p1_switch(): Number of pages is: 7
 p1_switch(): Unmapping...
 p1_switch(): Mapping...
+p1_switch(): Done!
 Pager(): Received fault from process 11
 Pager(): Address that caused the fault was 0
 Pager(): Free frame found! Frame 0
+Pager(): Assigning frame 0 to process 11
 Pager(): Zeroing out frame 0
 p1_switch() called: old = 10, new = 11
-p1_switch(): Number of pages is: 3
+p1_switch(): Number of pages is: 7
 p1_switch(): Unmapping...
 p1_switch(): Mapping...
-p1_switch(): Unused frame being mapped
+p1_switch(): Frame held by page table entry of process 11, in slot 0: 0
+p1_switch(): Unused frame being mapped, frame 0
 p1_switch(): vmStats is 1
+p1_switch(): Done!
 FaultHandler(): Waiting...
 p1_switch() called: old = 11, new = 10
-p1_switch(): Number of pages is: 3
+p1_switch(): Number of pages is: 7
 p1_switch(): Unmapping...
 p1_switch(): Mapping...
+p1_switch(): Done!
 Pager(): waiting for fault...
 p1_switch() called: old = 10, new = 11
-p1_switch(): Number of pages is: 3
+p1_switch(): Number of pages is: 7
 p1_switch(): Unmapping...
 p1_switch(): Mapping...
+p1_switch(): Frame held by page table entry of process 11, in slot 0: 0
+p1_switch(): Done!
 FaultHandler(): Done!
+Child(11): page 0, value 0
 FaultHandler(): started!
 FaultHandler(): Sending message to pager...
 p1_switch() called: old = 11, new = 10
-p1_switch(): Number of pages is: 3
+p1_switch(): Number of pages is: 7
 p1_switch(): Unmapping...
 p1_switch(): Mapping...
+p1_switch(): Done!
 Pager(): Received fault from process 11
 Pager(): Address that caused the fault was 4096
 Pager(): Free frame found! Frame 1
+Pager(): Assigning frame 1 to process 11
 Pager(): Zeroing out frame 1
 p1_switch() called: old = 10, new = 11
-p1_switch(): Number of pages is: 3
+p1_switch(): Number of pages is: 7
 p1_switch(): Unmapping...
 p1_switch(): Mapping...
-p1_switch(): Unused frame being mapped
+p1_switch(): Frame held by page table entry of process 11, in slot 0: 0
+p1_switch(): Frame held by page table entry of process 11, in slot 1: 1
+p1_switch(): Unused frame being mapped, frame 1
 p1_switch(): vmStats is 2
+p1_switch(): Done!
 FaultHandler(): Waiting...
 p1_switch() called: old = 11, new = 10
-p1_switch(): Number of pages is: 3
+p1_switch(): Number of pages is: 7
 p1_switch(): Unmapping...
 p1_switch(): Mapping...
+p1_switch(): Done!
 Pager(): waiting for fault...
 p1_switch() called: old = 10, new = 11
-p1_switch(): Number of pages is: 3
+p1_switch(): Number of pages is: 7
 p1_switch(): Unmapping...
 p1_switch(): Mapping...
+p1_switch(): Frame held by page table entry of process 11, in slot 0: 0
+p1_switch(): Frame held by page table entry of process 11, in slot 1: 1
+p1_switch(): Done!
 FaultHandler(): Done!
+Child(11): page 1, value 0
 FaultHandler(): started!
 FaultHandler(): Sending message to pager...
 p1_switch() called: old = 11, new = 10
-p1_switch(): Number of pages is: 3
+p1_switch(): Number of pages is: 7
 p1_switch(): Unmapping...
 p1_switch(): Mapping...
+p1_switch(): Done!
 Pager(): Received fault from process 11
 Pager(): Address that caused the fault was 8192
 Pager(): Free frame found! Frame 2
+Pager(): Assigning frame 2 to process 11
 Pager(): Zeroing out frame 2
 p1_switch() called: old = 10, new = 11
-p1_switch(): Number of pages is: 3
+p1_switch(): Number of pages is: 7
 p1_switch(): Unmapping...
 p1_switch(): Mapping...
-p1_switch(): Unused frame being mapped
+p1_switch(): Frame held by page table entry of process 11, in slot 0: 0
+p1_switch(): Frame held by page table entry of process 11, in slot 1: 1
+p1_switch(): Frame held by page table entry of process 11, in slot 2: 2
+p1_switch(): Unused frame being mapped, frame 2
 p1_switch(): vmStats is 3
+p1_switch(): Done!
 FaultHandler(): Waiting...
 p1_switch() called: old = 11, new = 10
-p1_switch(): Number of pages is: 3
+p1_switch(): Number of pages is: 7
 p1_switch(): Unmapping...
 p1_switch(): Mapping...
+p1_switch(): Done!
 Pager(): waiting for fault...
 p1_switch() called: old = 10, new = 11
-p1_switch(): Number of pages is: 3
+p1_switch(): Number of pages is: 7
 p1_switch(): Unmapping...
 p1_switch(): Mapping...
+p1_switch(): Frame held by page table entry of process 11, in slot 0: 0
+p1_switch(): Frame held by page table entry of process 11, in slot 1: 1
+p1_switch(): Frame held by page table entry of process 11, in slot 2: 2
+p1_switch(): Done!
 FaultHandler(): Done!
-p1_switch() called: old = 11, new = 9
-p1_switch() called: old = 9, new = 11
-Child(11): terminating
+Child(11): page 2, value 0
+FaultHandler(): started!
+FaultHandler(): Sending message to pager...
+p1_switch() called: old = 11, new = 10
+p1_switch(): Number of pages is: 7
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+p1_switch(): Done!
+Pager(): Received fault from process 11
+Pager(): Address that caused the fault was 12288
+Pager(): Free frame found! Frame 3
+Pager(): Assigning frame 3 to process 11
+Pager(): Zeroing out frame 3
+p1_switch() called: old = 10, new = 11
+p1_switch(): Number of pages is: 7
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+p1_switch(): Frame held by page table entry of process 11, in slot 0: 0
+p1_switch(): Frame held by page table entry of process 11, in slot 1: 1
+p1_switch(): Frame held by page table entry of process 11, in slot 2: 2
+p1_switch(): Frame held by page table entry of process 11, in slot 3: 3
+p1_switch(): Unused frame being mapped, frame 3
+p1_switch(): vmStats is 4
+p1_switch(): Done!
+FaultHandler(): Waiting...
+p1_switch() called: old = 11, new = 10
+p1_switch(): Number of pages is: 7
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+p1_switch(): Done!
+Pager(): waiting for fault...
+p1_switch() called: old = 10, new = 11
+p1_switch(): Number of pages is: 7
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+p1_switch(): Frame held by page table entry of process 11, in slot 0: 0
+p1_switch(): Frame held by page table entry of process 11, in slot 1: 1
+p1_switch(): Frame held by page table entry of process 11, in slot 2: 2
+p1_switch(): Frame held by page table entry of process 11, in slot 3: 3
+p1_switch(): Done!
+FaultHandler(): Done!
+Child(11): page 3, value 0
+FaultHandler(): started!
+FaultHandler(): Sending message to pager...
+p1_switch() called: old = 11, new = 10
+p1_switch(): Number of pages is: 7
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+p1_switch(): Done!
+Pager(): Received fault from process 11
+Pager(): Address that caused the fault was 16384
+Pager(): Free frame found! Frame 4
+Pager(): Assigning frame 4 to process 11
+Pager(): Zeroing out frame 4
+p1_switch() called: old = 10, new = 11
+p1_switch(): Number of pages is: 7
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+p1_switch(): Frame held by page table entry of process 11, in slot 0: 0
+p1_switch(): Frame held by page table entry of process 11, in slot 1: 1
+p1_switch(): Frame held by page table entry of process 11, in slot 2: 2
+p1_switch(): Frame held by page table entry of process 11, in slot 3: 3
+p1_switch(): Frame held by page table entry of process 11, in slot 4: 4
+p1_switch(): Unused frame being mapped, frame 4
+p1_switch(): vmStats is 5
+p1_switch(): Done!
+FaultHandler(): Waiting...
+p1_switch() called: old = 11, new = 10
+p1_switch(): Number of pages is: 7
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+p1_switch(): Done!
+Pager(): waiting for fault...
+p1_switch() called: old = 10, new = 11
+p1_switch(): Number of pages is: 7
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+p1_switch(): Frame held by page table entry of process 11, in slot 0: 0
+p1_switch(): Frame held by page table entry of process 11, in slot 1: 1
+p1_switch(): Frame held by page table entry of process 11, in slot 2: 2
+p1_switch(): Frame held by page table entry of process 11, in slot 3: 3
+p1_switch(): Frame held by page table entry of process 11, in slot 4: 4
+p1_switch(): Done!
+FaultHandler(): Done!
+Child(11): page 4, value 0
+FaultHandler(): started!
+FaultHandler(): Sending message to pager...
+p1_switch() called: old = 11, new = 10
+p1_switch(): Number of pages is: 7
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+p1_switch(): Done!
+Pager(): Received fault from process 11
+Pager(): Address that caused the fault was 20480
+Pager(): Free frame found! Frame 5
+Pager(): Assigning frame 5 to process 11
+Pager(): Zeroing out frame 5
+p1_switch() called: old = 10, new = 11
+p1_switch(): Number of pages is: 7
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+p1_switch(): Frame held by page table entry of process 11, in slot 0: 0
+p1_switch(): Frame held by page table entry of process 11, in slot 1: 1
+p1_switch(): Frame held by page table entry of process 11, in slot 2: 2
+p1_switch(): Frame held by page table entry of process 11, in slot 3: 3
+p1_switch(): Frame held by page table entry of process 11, in slot 4: 4
+p1_switch(): Frame held by page table entry of process 11, in slot 5: 5
+p1_switch(): Unused frame being mapped, frame 5
+p1_switch(): vmStats is 6
+p1_switch(): Done!
+FaultHandler(): Waiting...
+p1_switch() called: old = 11, new = 10
+p1_switch(): Number of pages is: 7
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+p1_switch(): Done!
+Pager(): waiting for fault...
+p1_switch() called: old = 10, new = 11
+p1_switch(): Number of pages is: 7
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+p1_switch(): Frame held by page table entry of process 11, in slot 0: 0
+p1_switch(): Frame held by page table entry of process 11, in slot 1: 1
+p1_switch(): Frame held by page table entry of process 11, in slot 2: 2
+p1_switch(): Frame held by page table entry of process 11, in slot 3: 3
+p1_switch(): Frame held by page table entry of process 11, in slot 4: 4
+p1_switch(): Frame held by page table entry of process 11, in slot 5: 5
+p1_switch(): Done!
+FaultHandler(): Done!
+Child(11): page 5, value 0
+FaultHandler(): started!
+FaultHandler(): Sending message to pager...
+p1_switch() called: old = 11, new = 10
+p1_switch(): Number of pages is: 7
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+p1_switch(): Done!
+Pager(): Received fault from process 11
+Pager(): Address that caused the fault was 24576
+Pager(): Clock algorithm found frame 0
+Pager(): Free frame found! Frame 0
+Pager(): Assigning frame 0 to process 11
+Pager(): Zeroing out frame 0
+p1_switch() called: old = 10, new = 11
+p1_switch(): Number of pages is: 7
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+p1_switch(): Frame held by page table entry of process 11, in slot 0: 0
+p1_switch(): Frame held by page table entry of process 11, in slot 1: 1
+p1_switch(): Frame held by page table entry of process 11, in slot 2: 2
+p1_switch(): Frame held by page table entry of process 11, in slot 3: 3
+p1_switch(): Frame held by page table entry of process 11, in slot 4: 4
+p1_switch(): Frame held by page table entry of process 11, in slot 5: 5
+p1_switch(): Frame held by page table entry of process 11, in slot 6: 0
+p1_switch(): Done!
+FaultHandler(): Waiting...
+p1_switch() called: old = 11, new = 10
+p1_switch(): Number of pages is: 7
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+p1_switch(): Done!
+Pager(): waiting for fault...
+p1_switch() called: old = 10, new = 11
+p1_switch(): Number of pages is: 7
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+p1_switch(): Frame held by page table entry of process 11, in slot 0: 0
+p1_switch(): Frame held by page table entry of process 11, in slot 1: 1
+p1_switch(): Frame held by page table entry of process 11, in slot 2: 2
+p1_switch(): Frame held by page table entry of process 11, in slot 3: 3
+p1_switch(): Frame held by page table entry of process 11, in slot 4: 4
+p1_switch(): Frame held by page table entry of process 11, in slot 5: 5
+p1_switch(): Frame held by page table entry of process 11, in slot 6: 0
+p1_switch(): Done!
+FaultHandler(): Done!
+Child(11): page 6, value 0
+Child(11): vmStats.faults = 7
 
-p1_quit() called: pid = 11
-p1_quit(): Freeing page table for 11
-p1_switch() called: old = 0, new = 9
-start5(): done
-vmDestroy(): started!
-vmDestroyReal(): started!
-p1_switch() called: old = 9, new = 10
-Pager(): Done!
-p1_quit() called: pid = 10
-p1_quit(): Freeing page table for 10
-p1_switch() called: old = 0, new = 9
-VmStats
-pages:          3
-frames:         3
-diskBlocks:     32
-freeFrames:     3
-freeDiskBlocks: 32
-switches:       20
-faults:         3
-new:            3
-pageIns:        0
-pageOuts:       0
-replaced:       0
-vmDestroyReal(): Done!
-vmDestroy(): Done!
-p1_quit() called: pid = 9
-p1_quit(): Freeing page table for 9
-p1_switch() called: old = 0, new = 8
-p1_quit() called: pid = 8
-p1_quit(): Freeing page table for 8
-p1_switch() called: old = 0, new = 4
-p1_switch() called: old = 4, new = 6
-p1_quit() called: pid = 6
-p1_quit(): Freeing page table for 6
-p1_switch() called: old = 0, new = 4
-p1_switch() called: old = 4, new = 7
-p1_quit() called: pid = 7
-p1_quit(): Freeing page table for 7
-p1_switch() called: old = 0, new = 4
-p1_switch() called: old = 4, new = 1
-p1_switch() called: old = 1, new = 5
-p1_quit() called: pid = 5
-p1_quit(): Freeing page table for 5
-p1_switch() called: old = 0, new = 4
-p1_quit() called: pid = 4
-p1_quit(): Freeing page table for 4
-p1_switch() called: old = 0, new = 3
-p1_quit() called: pid = 3
-p1_quit(): Freeing page table for 3
-p1_switch() called: old = 0, new = 2
-p1_switch() called: old = 0, new = 1
-All processes completed.
+Child(11): iteration 1
+before.faults = 7
+Child(11): reading one location from each of 7 pages
+Child(11): page 0, value 0
+Child(11): page 1, value 0
+Child(11): page 2, value 0
+Child(11): page 3, value 0
+Child(11): page 4, value 0
+Child(11): page 5, value 0
+Child(11): page 6, value 0
+Child(11): vmStats.faults = 7

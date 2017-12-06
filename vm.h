@@ -14,6 +14,7 @@
 #define UNUSED 500
 #define INCORE 501
 #define USED 502
+#define REPLACED 503
 /* You'll probably want more states */
 
 
