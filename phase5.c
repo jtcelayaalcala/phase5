@@ -635,7 +635,7 @@ static int Pager(char *buf){
           diskReadReal(SWAPDISK, pageSize*n/(sectorSize*trackSize) /*track*/, pageSize*n/(sectorSize) % trackSize /*sector*/, pageSize/(sectorSize)/*num sectors*/ , tempBuf);
 
 
-          memcpy(tempBuf /*destiniation*/, vmRegion /*source*/, USLOSS_MmuPageSize()); //move to buffer
+          memcpy(vmRegion /*destiniation*/, tempBuf /*source*/, USLOSS_MmuPageSize()); //move to buffer
 
           //diskReadReal(vmRegion, SWAPDISK, pageSize*ProcTable[faultedProc % MAXPROC].pageTable[page].diskBlock/(sectorSize*trackSize), pageSize*ProcTable[faultedProc % MAXPROC].pageTable[page].diskBlock/(sectorSize), pageSize/sectorSize, NULL); //write frame to disk
 

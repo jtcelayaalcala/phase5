@@ -32,7 +32,6 @@ p1_switch(): vmStats.pageOuts is currently: 0
 p1_switch(): vmStats.pageIns is currently: 0
 p1_switch(): VM region hasn't been initialized...doing nothing
 p1_switch(): Done!
-ClockDriver(): started
 p1_switch() called: old = 5, new = 4
 p1_switch(): vmStats.new is currently: 0
 p1_switch(): vmStats.pageOuts is currently: 0
@@ -61,14 +60,12 @@ p1_switch(): vmStats.pageOuts is currently: 0
 p1_switch(): vmStats.pageIns is currently: 0
 p1_switch(): VM region hasn't been initialized...doing nothing
 p1_switch(): Done!
-DiskDriver(0): started
 p1_switch() called: old = 6, new = 7
 p1_switch(): vmStats.new is currently: 0
 p1_switch(): vmStats.pageOuts is currently: 0
 p1_switch(): vmStats.pageIns is currently: 0
 p1_switch(): VM region hasn't been initialized...doing nothing
 p1_switch(): Done!
-DiskDriver(1): started
 p1_switch() called: old = 7, new = 5
 p1_switch(): vmStats.new is currently: 0
 p1_switch(): vmStats.pageOuts is currently: 0
@@ -87,7 +84,6 @@ p1_switch(): vmStats.pageOuts is currently: 0
 p1_switch(): vmStats.pageIns is currently: 0
 p1_switch(): VM region hasn't been initialized...doing nothing
 p1_switch(): Done!
-DiskDriver(0): tracks = 16
 p1_switch() called: old = 6, new = 4
 p1_switch(): vmStats.new is currently: 0
 p1_switch(): vmStats.pageOuts is currently: 0
@@ -112,7 +108,6 @@ p1_switch(): vmStats.pageOuts is currently: 0
 p1_switch(): vmStats.pageIns is currently: 0
 p1_switch(): VM region hasn't been initialized...doing nothing
 p1_switch(): Done!
-DiskDriver(0): top of loop, waiting for request
 p1_switch() called: old = 6, new = 1
 p1_switch(): vmStats.new is currently: 0
 p1_switch(): vmStats.pageOuts is currently: 0
@@ -125,24 +120,20 @@ p1_switch(): vmStats.pageOuts is currently: 0
 p1_switch(): vmStats.pageIns is currently: 0
 p1_switch(): VM region hasn't been initialized...doing nothing
 p1_switch(): Done!
-DiskDriver(1): tracks = 32
 p1_switch() called: old = 7, new = 4
 p1_switch(): vmStats.new is currently: 0
 p1_switch(): vmStats.pageOuts is currently: 0
 p1_switch(): vmStats.pageIns is currently: 0
 p1_switch(): VM region hasn't been initialized...doing nothing
 p1_switch(): Done!
-start3(): spawning start4
 p1_fork() called: pid = 8
 p1_fork(): Done!
-start3(): waiting for start4
 p1_switch() called: old = 4, new = 7
 p1_switch(): vmStats.new is currently: 0
 p1_switch(): vmStats.pageOuts is currently: 0
 p1_switch(): vmStats.pageIns is currently: 0
 p1_switch(): VM region hasn't been initialized...doing nothing
 p1_switch(): Done!
-DiskDriver(1): top of loop, waiting for request
 p1_switch() called: old = 7, new = 8
 p1_switch(): vmStats.new is currently: 0
 p1_switch(): vmStats.pageOuts is currently: 0
@@ -169,104 +160,60 @@ p1_switch(): vmStats.pageOuts is currently: 0
 p1_switch(): vmStats.pageIns is currently: 0
 p1_switch(): VM region hasn't been initialized...doing nothing
 p1_switch(): Done!
-start5(): Running:    simple5
+start5(): Running:    simple9
 start5(): Pagers:     1
           Mappings:   2
           Pages:      2
-          Frames:     1
-          Children:   1
-          Iterations: 2
+          Frames:     2
+          Children:   2
+          Iterations: 1
           Priority:   5
 vmInit(): started!
 vmInit(): Extracting values from Sysargs struct...
 vmInitReal(): started!
-diskSizeReal(): called, unit = 1
 vmInitReal(): Forking pagers...
 p1_fork() called: pid = 10
 p1_fork(): Initializing page table for process 10
 p1_fork(): Done!
 vmInitReal(): Returning!
-vmInitReal(): vmRegion is: 140714235555840
+vmInitReal(): vmRegion is: 140254203961344
 vmInit(): Done!
+start5(): after call to VmInit, status = 0
+
 p1_fork() called: pid = 11
 p1_fork(): Initializing page table for process 11
+p1_fork(): Done!
+p1_fork() called: pid = 12
+p1_fork(): Initializing page table for process 12
 p1_fork(): Done!
 p1_switch() called: old = 9, new = 10
 p1_switch(): vmStats.new is currently: 0
 p1_switch(): vmStats.pageOuts is currently: 0
 p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): Number of pages is: 2
+p1_switch(): Mapping...
 p1_switch(): Done!
-PID	Parent	Priority	Status		# Kids	CPUtime	Name
- -1	  -1	   -1		EMPTY		  0	   -1
- 1	  -2	   6		READY		  0	   99865	sentinel
- 2	  -2	   1		JOIN_BLOCK	  1	   16	start1
- 3	  2	   1		JOIN_BLOCK	  1	   12	start2
- 4	  3	   1		JOIN_BLOCK	  4	   77	start3
- 5	  4	   2		11		  0	   171	Clock driver
- 6	  4	   2		11		  0	   40073	DiskDriver0
- 7	  4	   2		11		  0	   40034	DiskDriver1
- 8	  4	   3		READY		  1	   80107	start4
- 9	  8	   2		11		  2	   25	Start5
- 10	  9	   2		RUNNING		  0	   -1	Pager 0
- 11	  9	   5		READY		  0	   -1	Child
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
- -1	  -1	   -1		EMPTY		  0	   -1
 Pager(): started!
 Pager(): waiting for fault...
 p1_switch() called: old = 10, new = 8
 p1_switch(): vmStats.new is currently: 0
 p1_switch(): vmStats.pageOuts is currently: 0
 p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): Number of pages is: 2
+p1_switch(): Unmapping...
 p1_switch(): Done!
 p1_switch() called: old = 8, new = 11
 p1_switch(): vmStats.new is currently: 0
 p1_switch(): vmStats.pageOuts is currently: 0
 p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): Number of pages is: 2
+p1_switch(): Mapping...
 p1_switch(): Done!
 
 Child(11): starting
+Child(11): str = This is the first page for pid 11
 
-Child(11): iteration 0
-Child(11) writing to page 0
+Child(11): strlen(str) = 34
 FaultHandler(): started!
 FaultHandler(): Sending message to pager...
 p1_switch() called: old = 11, new = 10
@@ -282,7 +229,22 @@ Pager(): Address that caused the fault was 0
 Pager(): Free frame found! Frame 0
 Pager(): Assigning frame 0 to process 11
 Pager(): Zeroing out frame 0
-p1_switch() called: old = 10, new = 11
+p1_switch() called: old = 10, new = 12
+p1_switch(): vmStats.new is currently: 0
+p1_switch(): vmStats.pageOuts is currently: 0
+p1_switch(): vmStats.pageIns is currently: 0
+p1_switch(): Number of pages is: 2
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+p1_switch(): Done!
+
+Child(12): starting
+Child(12): str = This is the first page for pid 12
+
+Child(12): strlen(str) = 34
+FaultHandler(): started!
+FaultHandler(): Sending message to pager...
+p1_switch() called: old = 12, new = 11
 p1_switch(): vmStats.new is currently: 0
 p1_switch(): vmStats.pageOuts is currently: 0
 p1_switch(): vmStats.pageIns is currently: 0
@@ -292,6 +254,7 @@ p1_switch(): Mapping...
 p1_switch(): Frame held by page table entry of process 11, in slot 0: 0
 p1_switch(): Unused frame being mapped, frame 0
 p1_switch(): vmStats is 1
+p1_switch(): Map is done
 p1_switch(): Done!
 FaultHandler(): Waiting...
 p1_switch() called: old = 11, new = 10
@@ -302,931 +265,168 @@ p1_switch(): Number of pages is: 2
 p1_switch(): Unmapping...
 p1_switch(): Mapping...
 p1_switch(): Frame held by page table entry of process 10, in slot 1: 0
+p1_switch(): Map is done
 p1_switch(): Done!
 Pager(): waiting for fault...
-p1_switch() called: old = 10, new = 11
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 0
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): Number of pages is: 2
-p1_switch(): Unmapping...
-p1_switch(): Mapping...
-p1_switch(): Frame held by page table entry of process 11, in slot 0: 0
-p1_switch(): Done!
-FaultHandler(): Done!
-Child(11) writing to page 1
-FaultHandler(): started!
-FaultHandler(): Sending message to pager...
-p1_switch() called: old = 11, new = 10
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 0
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): Number of pages is: 2
-p1_switch(): Unmapping...
-p1_switch(): Mapping...
-p1_switch(): Frame held by page table entry of process 10, in slot 1: 0
-p1_switch(): Done!
-Pager(): Received fault from process 11
-Pager(): Address that caused the fault was 4096
-Pager(): Access is 3 for frame 0
-Pager(): Access is 2 for frame 0
-Pager(): Clock algorithm found frame 0
-Pager(): Frame 0 is dirty
-Pager(): Copying frame 0 to intermediate buffer
-Pager(): About to write, have that pageSize is 4096, sector size is 512, track size is 16, and disk size is 32
-Pager(): So, we will write 8 sectors to track 0, starting at sector 0
-diskWriteReal(): called
-diskRequest(): operation = USLOSS_DISK_WRITE, getting mutex
-diskRequest(): got mutex
-insert_ordered(): at start
-diskRequest(): released mutex
-diskRequest(): waking up DiskDriver(1)
-diskWriteReal(): receiving on private mailbox, index = 10
-p1_switch() called: old = 10, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 0
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 1, track 0, sector 0
-p1_switch() called: old = 7, new = 11
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 0
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-FaultHandler(): Waiting...
-p1_switch() called: old = 11, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 0
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 0
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 1, track 0, sector 1
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 0
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 0
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 1, track 0, sector 2
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 0
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 5
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 0
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 5, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 0
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 0
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 1, track 0, sector 3
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 0
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 0
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 1, track 0, sector 4
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 0
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 0
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 1, track 0, sector 5
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 0
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 0
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 1, track 0, sector 6
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 0
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 0
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 1, track 0, sector 7
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 0
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 5
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 0
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 5, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 0
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 0
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-DiskDriver(1): top of loop, waiting for request
-p1_switch() called: old = 7, new = 10
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 0
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskWriteReal(): returning
-Pager(): Incrementing pageOuts to 1
-Pager(): Free frame found! Frame 0
-Pager(): Assigning frame 0 to process 11
-Pager(): Zeroing out frame 0
-Pager(): waiting for fault...
-p1_switch() called: old = 10, new = 11
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 1
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): Number of pages is: 2
-p1_switch(): Unmapping...
-p1_switch(): Mapping...
-p1_switch(): Frame held by page table entry of process 11, in slot 0: -1
-p1_switch(): Frame held by page table entry of process 11, in slot 1: 0
-p1_switch(): Done!
-FaultHandler(): Done!
-
-Child(11): iteration 1
-Child(11) writing to page 0
-FaultHandler(): started!
-FaultHandler(): Sending message to pager...
-p1_switch() called: old = 11, new = 10
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 1
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): Number of pages is: 2
-p1_switch(): Unmapping...
-p1_switch(): Mapping...
-p1_switch(): Frame held by page table entry of process 10, in slot 1: -1
-p1_switch(): Done!
-Pager(): Received fault from process 11
+Pager(): Received fault from process 12
 Pager(): Address that caused the fault was 0
-Pager(): Access is 3 for frame 0
-Pager(): Access is 2 for frame 0
-Pager(): Clock algorithm found frame 0
-Pager(): Frame 0 is dirty
-Pager(): Copying frame 0 to intermediate buffer
-Pager(): About to write, have that pageSize is 4096, sector size is 512, track size is 16, and disk size is 32
-Pager(): So, we will write 8 sectors to track 0, starting at sector 0
-diskWriteReal(): called
-diskRequest(): operation = USLOSS_DISK_WRITE, getting mutex
-diskRequest(): got mutex
-insert_ordered(): at start
-diskRequest(): released mutex
-diskRequest(): waking up DiskDriver(1)
-diskWriteReal(): receiving on private mailbox, index = 10
-p1_switch() called: old = 10, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 1
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 1, track 0, sector 0
-p1_switch() called: old = 7, new = 11
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 1
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-FaultHandler(): Waiting...
-p1_switch() called: old = 11, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 1
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 1
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 1, track 0, sector 1
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 1
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 1
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 1, track 0, sector 2
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 1
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 1
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 1, track 0, sector 3
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 1
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 1
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 1, track 0, sector 4
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 1
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 5
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 1
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 5, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 1
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 1
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 1, track 0, sector 5
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 1
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 1
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 1, track 0, sector 6
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 1
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 1
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 1, track 0, sector 7
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 1
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 1
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-DiskDriver(1): top of loop, waiting for request
-p1_switch() called: old = 7, new = 10
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 1
-p1_switch(): vmStats.pageIns is currently: 0
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskWriteReal(): returning
-Pager(): Incrementing pageOuts to 2
-Pager(): Free frame found! Frame 0
-Pager(): Assigning frame 0 to process 11
-Pager(): Zeroing out frame 0
-Pager(): Reading from disk...
-Pager(): About to read, have that pageSize is 4096, sector size is 512, track size is 16, and disk size is 32
-Pager(): So, we will read 8 sectors from track 0, starting at sector 0
-Pager(): Address we will read into is: 140714235555840
-diskReadReal(): called
-diskRequest(): operation = USLOSS_DISK_READ, getting mutex
-diskRequest(): got mutex
-insert_ordered(): at start
-diskRequest(): released mutex
-diskRequest(): waking up DiskDriver(1)
-diskReadReal(): receiving on private mailbox, index = 10
-p1_switch() called: old = 10, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 0, track 0, sector 0
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 0, track 0, sector 1
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 5
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 5, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 0, track 0, sector 2
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 0, track 0, sector 3
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 0, track 0, sector 4
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 0, track 0, sector 5
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 0, track 0, sector 6
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 5
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 5, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 0, track 0, sector 7
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-DiskDriver(1): top of loop, waiting for request
-p1_switch() called: old = 7, new = 10
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskReadReal(): returning
-Pager(): waiting for fault...
+Pager(): Free frame found! Frame 1
+Pager(): Assigning frame 1 to process 12
+Pager(): Zeroing out frame 1
 p1_switch() called: old = 10, new = 11
 p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
+p1_switch(): vmStats.pageOuts is currently: 0
+p1_switch(): vmStats.pageIns is currently: 0
 p1_switch(): Number of pages is: 2
 p1_switch(): Unmapping...
 p1_switch(): Mapping...
 p1_switch(): Frame held by page table entry of process 11, in slot 0: 0
-p1_switch(): Frame held by page table entry of process 11, in slot 1: -1
+p1_switch(): Map is done
 p1_switch(): Done!
 FaultHandler(): Done!
-Child(11) writing to page 1
-FaultHandler(): started!
-FaultHandler(): Sending message to pager...
-p1_switch() called: old = 11, new = 10
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): Number of pages is: 2
-p1_switch(): Unmapping...
-p1_switch(): Mapping...
-p1_switch(): Frame held by page table entry of process 10, in slot 1: 0
-p1_switch(): Done!
-Pager(): Received fault from process 11
-Pager(): Address that caused the fault was 4096
-Pager(): Access is 3 for frame 0
-Pager(): Access is 2 for frame 0
-Pager(): Clock algorithm found frame 0
-Pager(): Frame 0 is dirty
-Pager(): Copying frame 0 to intermediate buffer
-Pager(): About to write, have that pageSize is 4096, sector size is 512, track size is 16, and disk size is 32
-Pager(): So, we will write 8 sectors to track 0, starting at sector 0
-diskWriteReal(): called
-diskRequest(): operation = USLOSS_DISK_WRITE, getting mutex
-diskRequest(): got mutex
-insert_ordered(): at start
-diskRequest(): released mutex
-diskRequest(): waking up DiskDriver(1)
-diskWriteReal(): receiving on private mailbox, index = 10
-p1_switch() called: old = 10, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 1, track 0, sector 0
-p1_switch() called: old = 7, new = 11
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-FaultHandler(): Waiting...
-p1_switch() called: old = 11, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 1, track 0, sector 1
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 1, track 0, sector 2
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 1, track 0, sector 3
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 5
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 5, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 1, track 0, sector 4
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 1, track 0, sector 5
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 1, track 0, sector 6
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 1, track 0, sector 7
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-DiskDriver(1): top of loop, waiting for request
-p1_switch() called: old = 7, new = 10
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 2
-p1_switch(): vmStats.pageIns is currently: 1
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskWriteReal(): returning
-Pager(): Incrementing pageOuts to 3
-Pager(): Free frame found! Frame 0
-Pager(): Assigning frame 0 to process 11
-Pager(): Zeroing out frame 0
-Pager(): Reading from disk...
-Pager(): About to read, have that pageSize is 4096, sector size is 512, track size is 16, and disk size is 32
-Pager(): So, we will read 8 sectors from track 0, starting at sector 0
-Pager(): Address we will read into is: 140714235555840
-diskReadReal(): called
-diskRequest(): operation = USLOSS_DISK_READ, getting mutex
-diskRequest(): got mutex
-insert_ordered(): at start
-diskRequest(): released mutex
-diskRequest(): waking up DiskDriver(1)
-diskReadReal(): receiving on private mailbox, index = 10
-p1_switch() called: old = 10, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 0, track 0, sector 0
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 5
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 5, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 0, track 0, sector 1
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 0, track 0, sector 2
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 0, track 0, sector 3
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 0, track 0, sector 4
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 0, track 0, sector 5
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 5
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 5, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 0, track 0, sector 6
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskDriverWork(1): operation 0, track 0, sector 7
-p1_switch() called: old = 7, new = 1
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-p1_switch() called: old = 1, new = 7
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-DiskDriver(1): top of loop, waiting for request
-p1_switch() called: old = 7, new = 10
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
-p1_switch(): Done!
-diskReadReal(): returning
-Pager(): waiting for fault...
-p1_switch() called: old = 10, new = 11
-p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): Number of pages is: 2
-p1_switch(): Unmapping...
-p1_switch(): Mapping...
-p1_switch(): Frame held by page table entry of process 11, in slot 0: -1
-p1_switch(): Frame held by page table entry of process 11, in slot 1: 0
-p1_switch(): Done!
-FaultHandler(): Done!
+Child(11): after memcpy
+Child(11): strcmp first attempt to read worked!
 p1_switch() called: old = 11, new = 9
 p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): vmStats.pageOuts is currently: 0
+p1_switch(): vmStats.pageIns is currently: 0
+p1_switch(): Number of pages is: 2
+p1_switch(): Unmapping...
+p1_switch(): Done!
+p1_switch() called: old = 9, new = 12
+p1_switch(): vmStats.new is currently: 2
+p1_switch(): vmStats.pageOuts is currently: 0
+p1_switch(): vmStats.pageIns is currently: 0
+p1_switch(): Number of pages is: 2
+p1_switch(): Mapping...
+p1_switch(): Frame held by page table entry of process 12, in slot 0: 1
+p1_switch(): Unused frame being mapped, frame 0
+p1_switch(): vmStats is 2
+p1_switch(): Map is done
+p1_switch(): Done!
+FaultHandler(): Waiting...
+p1_switch() called: old = 12, new = 10
+p1_switch(): vmStats.new is currently: 2
+p1_switch(): vmStats.pageOuts is currently: 0
+p1_switch(): vmStats.pageIns is currently: 0
+p1_switch(): Number of pages is: 2
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+p1_switch(): Frame held by page table entry of process 10, in slot 1: 0
+p1_switch(): Map is done
+p1_switch(): Done!
+Pager(): waiting for fault...
+p1_switch() called: old = 10, new = 11
+p1_switch(): vmStats.new is currently: 2
+p1_switch(): vmStats.pageOuts is currently: 0
+p1_switch(): vmStats.pageIns is currently: 0
+p1_switch(): Number of pages is: 2
+p1_switch(): Unmapping...
+p1_switch(): Mapping...
+p1_switch(): Frame held by page table entry of process 11, in slot 0: 0
+p1_switch(): Map is done
+p1_switch(): Done!
+p1_switch() called: old = 11, new = 9
+p1_switch(): vmStats.new is currently: 2
+p1_switch(): vmStats.pageOuts is currently: 0
+p1_switch(): vmStats.pageIns is currently: 0
+p1_switch(): Number of pages is: 2
+p1_switch(): Unmapping...
+p1_switch(): Done!
+p1_switch() called: old = 9, new = 12
+p1_switch(): vmStats.new is currently: 2
+p1_switch(): vmStats.pageOuts is currently: 0
+p1_switch(): vmStats.pageIns is currently: 0
+p1_switch(): Number of pages is: 2
+p1_switch(): Mapping...
+p1_switch(): Frame held by page table entry of process 12, in slot 0: 1
+p1_switch(): Map is done
+p1_switch(): Done!
+FaultHandler(): Done!
+Child(12): after memcpy
+Child(12): strcmp first attempt to read worked!
+p1_switch() called: old = 12, new = 9
+p1_switch(): vmStats.new is currently: 2
+p1_switch(): vmStats.pageOuts is currently: 0
+p1_switch(): vmStats.pageIns is currently: 0
+p1_switch(): Number of pages is: 2
+p1_switch(): Unmapping...
 p1_switch(): Done!
 p1_switch() called: old = 9, new = 11
 p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): vmStats.pageOuts is currently: 0
+p1_switch(): vmStats.pageIns is currently: 0
+p1_switch(): Number of pages is: 2
+p1_switch(): Mapping...
+p1_switch(): Frame held by page table entry of process 11, in slot 0: 0
+p1_switch(): Map is done
 p1_switch(): Done!
+Child(11): strcmp second attempt to read worked!
+Child(11): checking various vmStats
+Child(11): terminating
 
 p1_quit() called: pid = 11
 p1_quit(): Freeing page table for 11
+p1_quit(): Unmapping...
 p1_switch() called: old = 0, new = 9
 p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): vmStats.pageOuts is currently: 0
+p1_switch(): vmStats.pageIns is currently: 0
+p1_switch(): Number of pages is: 2
+p1_switch(): Done!
+p1_switch() called: old = 9, new = 12
+p1_switch(): vmStats.new is currently: 2
+p1_switch(): vmStats.pageOuts is currently: 0
+p1_switch(): vmStats.pageIns is currently: 0
+p1_switch(): Number of pages is: 2
+p1_switch(): Mapping...
+p1_switch(): Frame held by page table entry of process 12, in slot 0: 1
+p1_switch(): Map is done
+p1_switch(): Done!
+Child(12): strcmp second attempt to read worked!
+Child(12): checking various vmStats
+Child(12): terminating
+
+p1_quit() called: pid = 12
+p1_quit(): Freeing page table for 12
+p1_quit(): Unmapping...
+p1_switch() called: old = 0, new = 9
+p1_switch(): vmStats.new is currently: 2
+p1_switch(): vmStats.pageOuts is currently: 0
+p1_switch(): vmStats.pageIns is currently: 0
+p1_switch(): Number of pages is: 2
 p1_switch(): Done!
 start5(): done
 vmDestroy(): started!
 vmDestroyReal(): started!
 p1_switch() called: old = 9, new = 10
 p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): vmStats.pageOuts is currently: 0
+p1_switch(): vmStats.pageIns is currently: 0
+p1_switch(): Number of pages is: 2
+p1_switch(): Mapping...
 p1_switch(): Done!
 Pager(): Done!
 p1_quit() called: pid = 10
 p1_quit(): Freeing page table for 10
+p1_quit(): Unmapping...
 p1_switch() called: old = 0, new = 9
 p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): vmStats.pageOuts is currently: 0
+p1_switch(): vmStats.pageIns is currently: 0
+p1_switch(): Number of pages is: 2
 p1_switch(): Done!
 VmStats
 pages:          2
-frames:         1
+frames:         2
 diskBlocks:     64
-freeFrames:     1
+freeFrames:     2
 freeDiskBlocks: 64
-switches:       125
-faults:         4
+switches:       19
+faults:         2
 new:            2
-pageIns:        2
-pageOuts:       3
+pageIns:        0
+pageOuts:       0
 replaced:       0
 vmDestroyReal(): Done!
 vmDestroy(): Done!
@@ -1234,92 +434,86 @@ p1_quit() called: pid = 9
 p1_quit(): Freeing page table for 9
 p1_switch() called: old = 0, new = 8
 p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): vmStats.pageOuts is currently: 0
+p1_switch(): vmStats.pageIns is currently: 0
+p1_switch(): Number of pages is: 2
 p1_switch(): Done!
 p1_quit() called: pid = 8
 p1_quit(): Freeing page table for 8
 p1_switch() called: old = 0, new = 4
 p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): vmStats.pageOuts is currently: 0
+p1_switch(): vmStats.pageIns is currently: 0
+p1_switch(): Number of pages is: 2
 p1_switch(): Done!
-start3(): zap'ing Disk Driver #0
 p1_switch() called: old = 4, new = 6
 p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): vmStats.pageOuts is currently: 0
+p1_switch(): vmStats.pageIns is currently: 0
+p1_switch(): Number of pages is: 2
 p1_switch(): Done!
-DiskDriver(0): quitting
 p1_quit() called: pid = 6
 p1_quit(): Freeing page table for 6
 p1_switch() called: old = 0, new = 4
 p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): vmStats.pageOuts is currently: 0
+p1_switch(): vmStats.pageIns is currently: 0
+p1_switch(): Number of pages is: 2
 p1_switch(): Done!
-start3(): zap'ing Disk Driver #1
 p1_switch() called: old = 4, new = 7
 p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): vmStats.pageOuts is currently: 0
+p1_switch(): vmStats.pageIns is currently: 0
+p1_switch(): Number of pages is: 2
 p1_switch(): Done!
-DiskDriver(1): quitting
 p1_quit() called: pid = 7
 p1_quit(): Freeing page table for 7
 p1_switch() called: old = 0, new = 4
 p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): vmStats.pageOuts is currently: 0
+p1_switch(): vmStats.pageIns is currently: 0
+p1_switch(): Number of pages is: 2
 p1_switch(): Done!
-start3(): zap'ing Clock Driver
 p1_switch() called: old = 4, new = 1
 p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): vmStats.pageOuts is currently: 0
+p1_switch(): vmStats.pageIns is currently: 0
+p1_switch(): Number of pages is: 2
 p1_switch(): Done!
 p1_switch() called: old = 1, new = 5
 p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): vmStats.pageOuts is currently: 0
+p1_switch(): vmStats.pageIns is currently: 0
+p1_switch(): Number of pages is: 2
 p1_switch(): Done!
 p1_quit() called: pid = 5
 p1_quit(): Freeing page table for 5
 p1_switch() called: old = 0, new = 4
 p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): vmStats.pageOuts is currently: 0
+p1_switch(): vmStats.pageIns is currently: 0
+p1_switch(): Number of pages is: 2
 p1_switch(): Done!
-start3(): done, quitting
 p1_quit() called: pid = 4
 p1_quit(): Freeing page table for 4
 p1_switch() called: old = 0, new = 3
 p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): vmStats.pageOuts is currently: 0
+p1_switch(): vmStats.pageIns is currently: 0
+p1_switch(): Number of pages is: 2
 p1_switch(): Done!
 p1_quit() called: pid = 3
 p1_quit(): Freeing page table for 3
 p1_switch() called: old = 0, new = 2
 p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): vmStats.pageOuts is currently: 0
+p1_switch(): vmStats.pageIns is currently: 0
+p1_switch(): Number of pages is: 2
 p1_switch(): Done!
 p1_switch() called: old = 0, new = 1
 p1_switch(): vmStats.new is currently: 2
-p1_switch(): vmStats.pageOuts is currently: 3
-p1_switch(): vmStats.pageIns is currently: 2
-p1_switch(): VM region hasn't been initialized...doing nothing
+p1_switch(): vmStats.pageOuts is currently: 0
+p1_switch(): vmStats.pageIns is currently: 0
+p1_switch(): Number of pages is: 2
 p1_switch(): Done!
 All processes completed.

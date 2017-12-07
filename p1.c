@@ -74,53 +74,59 @@ void p1_switch(int old, int new) {
     	semvReal(statSem);
     }
 
-    if(vmInitialized && oldProc->inVM && newProc->inVM){ //vm Region has been initialized
+    if(vmInitialized){ //vm Region has been initialized
 
     	debug("p1_switch(): Number of pages is: %d\n", vmStats.pages);
 
 
-    	debug("p1_switch(): Unmapping...\n");
-    	for(int i = 0;i < vmStats.pages;i++){ //go through and unmap all of the old mappings
-    		if(oldProc->pageTable[i].inUse){
-    			USLOSS_MmuUnmap(TAG, i);
-    		}
-    	}
-		debug("p1_switch(): Mapping...\n");
-    	for(int i = 0;i < vmStats.pages;i++){ //go through and map all of the new mappings
-    		if(newProc->pageTable[i].inUse){
+        if(oldProc->inVM){
+        	debug("p1_switch(): Unmapping...\n");
+        	for(int i = 0;i < vmStats.pages;i++){ //go through and unmap all of the old mappings
+        		if(oldProc->pageTable[i].inUse){
+        			USLOSS_MmuUnmap(TAG, i);
+        		}
+        	}
+        }
 
-    			debug("p1_switch(): Frame held by page table entry of process %d, in slot %d: %d\n", new, i, newProc->pageTable[i].frame);
+        if(newProc->inVM){
+    		debug("p1_switch(): Mapping...\n");
+        	for(int i = 0;i < vmStats.pages;i++){ //go through and map all of the new mappings
+        		if(newProc->pageTable[i].inUse){
 
-
-                if(ProcTable[new % MAXPROC].pageTable[i].state == UNUSED){
-
-                    ProcTable[new % MAXPROC].pageTable[i].state = USED;
-                }
+        			debug("p1_switch(): Frame held by page table entry of process %d, in slot %d: %d\n", new, i, newProc->pageTable[i].frame);
 
 
-    			if(freePages[i] == 0){
-    				//USLOSS_Halt(1);
-	    			sempReal(statSem);
-	    			vmStats.new++; //increment stats
-	    			semvReal(statSem);
+                    if(ProcTable[new % MAXPROC].pageTable[i].state == UNUSED){
 
-                    freePages[i] = 1;
-	    		}
+                        ProcTable[new % MAXPROC].pageTable[i].state = USED;
+                    }
 
-    			if(frameTable[newProc->pageTable[i].frame].state == UNUSED){ //mapping previously unused frame
-    				debug("p1_switch(): Unused frame being mapped, frame %d\n", i);
 
-    				debug("p1_switch(): vmStats is %d\n", vmStats.new);
+        			if(freePages[i] == 0){
+        				//USLOSS_Halt(1);
+    	    			sempReal(statSem);
+    	    			vmStats.new++; //increment stats
+    	    			semvReal(statSem);
 
-    				frameTable[newProc->pageTable[i].frame].state = USED; //mark frame as used
+                        freePages[i] = 1;
+    	    		}
 
-    			}
+        			if(frameTable[newProc->pageTable[i].frame].state == UNUSED){ //mapping previously unused frame
+        				debug("p1_switch(): Unused frame being mapped, frame %d\n", i);
 
-    			if(newProc->pageTable[i].frame >= 0){
-	    			USLOSS_MmuMap(TAG, i, newProc->pageTable[i].frame, USLOSS_MMU_PROT_RW);
-	    		}
-    		}
-    	}
+        				debug("p1_switch(): vmStats is %d\n", vmStats.new);
+
+        				frameTable[newProc->pageTable[i].frame].state = USED; //mark frame as used
+
+        			}
+
+        			if(newProc->pageTable[i].frame >= 0){
+                        debug("p1_switch(): Map is done\n");
+    	    			USLOSS_MmuMap(TAG, i, newProc->pageTable[i].frame, USLOSS_MMU_PROT_RW);
+    	    		}
+        		}
+        	}
+        }
 
 	}else{
 		debug("p1_switch(): VM region hasn't been initialized...doing nothing\n");
@@ -133,9 +139,20 @@ void p1_switch(int old, int new) {
 void p1_quit(int pid) {
     debug("p1_quit() called: pid = %d\n", pid);
 
+    Process *oldProc = &ProcTable[pid % MAXPROC];
+
     if(vmInitialized){ //vm Region has been initialized
 
 	    debug("p1_quit(): Freeing page table for %d\n", pid);
+
+        if(oldProc->inVM){
+            debug("p1_quit(): Unmapping...\n");
+            for(int i = 0;i < vmStats.pages;i++){ //go through and unmap all of the old mappings
+                if(oldProc->pageTable[i].inUse){
+                    USLOSS_MmuUnmap(TAG, i);
+                }
+            }
+        }
 
 	    free(ProcTable[pid % MAXPROC].pageTable); //free page table
 
